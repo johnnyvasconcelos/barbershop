@@ -5,8 +5,12 @@ import { Badge } from "./_components/ui/badge";
 import { Avatar, AvatarImage } from "./_components/ui/avatar";
 import Header from "./_components/header";
 import Image from "next/image";
+import { db } from "./_lib/prisma";
+import BarberShopItem from "./_components/barbershop-item";
 
-const page = () => {
+const page = async () => {
+  // banco de dados
+  const barbershops = await db.barbershop.findMany({});
   return (
     <>
       <Header />
@@ -28,7 +32,12 @@ const page = () => {
           />
         </div>
         {/* AGENDAMENTO */}
-        <Card className="mt-5">
+
+        <h2 className="text-xs font-bold mt-5 text-gray-400 uppercase">
+          Agendamentos
+        </h2>
+
+        <Card className="mt-3">
           <CardContent className="flex justify-between p-0">
             <div className="flex flex-col gap-2 py-5 pl-5">
               <Badge className="rounded-xl w-fit">Confirmado</Badge>
@@ -47,6 +56,15 @@ const page = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* RECOMENDADOS (DB) */}
+
+        <h2 className="text-xs font-bold mt-5 text-gray-400 uppercase">
+          Recomendados
+        </h2>
+        {barbershops.map((barbershop) => {
+          return <BarberShopItem key={barbershop.id} barbershop={barbershop} />;
+        })}
       </div>
     </>
   );
