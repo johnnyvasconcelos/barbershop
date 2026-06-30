@@ -7,10 +7,16 @@ import Header from "./_components/header";
 import Image from "next/image";
 import { db } from "./_lib/prisma";
 import BarberShopItem from "./_components/barbershop-item";
+import { Scissors, Sparkles, Wand2 } from "lucide-react";
 
 const page = async () => {
   // banco de dados
   const barbershops = await db.barbershop.findMany({});
+  const popularBank = await db.barbershop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  });
   return (
     <>
       <Header />
@@ -21,6 +27,29 @@ const page = async () => {
         <div className="flex mt-5 flex-row justify-content items-center gap-2">
           <Input placeholder="Faça sua busca..." />
           <SearchIcon />
+        </div>
+        {/* BUSCA RÁPIDA */}
+        <div className="flex mt-5 gap-2 overflow-x-auto overflow-y-hidden rounded-md scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <Card className="flex flex-row flex-shrink-0 border-none bg-transparent">
+            <CardContent className="flex items-center gap-2 text-white p-3 rounded-sm">
+              <Scissors size={14} />
+              <p>Cabelo</p>
+            </CardContent>
+          </Card>
+
+          <Card className="flex flex-row flex-shrink-0 border-none bg-transparent">
+            <CardContent className="flex items-center gap-2 text-white p-3 rounded-sm">
+              <Wand2 size={14} />
+              <p>Barba</p>
+            </CardContent>
+          </Card>
+
+          <Card className="flex flex-row flex-shrink-0 border-none bg-transparent text-nowrap">
+            <CardContent className="flex items-center gap-2 text-white p-3 rounded-sm">
+              <Sparkles size={14} />
+              <p>Acabamento</p>
+            </CardContent>
+          </Card>
         </div>
         {/* IMAGEM */}
         <div className="relative w-full h-[130px] mt-5">
@@ -69,7 +98,25 @@ const page = async () => {
             );
           })}
         </div>
+
+        <h2 className="text-xs font-bold mt-6 text-gray-400 uppercase">
+          Populares
+        </h2>
+        <div className="flex gap-4 mt-3 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBank.map((barbershop) => {
+            return (
+              <BarberShopItem key={barbershop.id} barbershop={barbershop} />
+            );
+          })}
+        </div>
       </div>
+      <footer className="mt-5">
+        <Card className="p-5 rounded-none">
+          <CardContent>
+            <p className="text-sm">&copy; Copyright Barbershop.</p>
+          </CardContent>
+        </Card>
+      </footer>
     </>
   );
 };
