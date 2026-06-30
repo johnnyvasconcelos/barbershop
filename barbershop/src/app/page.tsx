@@ -59,12 +59,16 @@ const page = async () => {
 
         {/* RECOMENDADOS (DB) */}
 
-        <h2 className="text-xs font-bold mt-5 text-gray-400 uppercase">
+        <h2 className="text-xs font-bold mt-6 text-gray-400 uppercase">
           Recomendados
         </h2>
-        {barbershops.map((barbershop) => {
-          return <BarberShopItem key={barbershop.id} barbershop={barbershop} />;
-        })}
+        <div className="flex gap-4 mt-3 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => {
+            return (
+              <BarberShopItem key={barbershop.id} barbershop={barbershop} />
+            );
+          })}
+        </div>
       </div>
     </>
   );

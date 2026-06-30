@@ -3,32 +3,106 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const barbershopNames = [
-    "Barbearia Corleone",
-    "Red Navalha",
-    "Barba & Navalha",
-    "Lenhador Urbano",
-    "Dom Pedro Barbearia",
-    "The Shave Club",
-    "Barbearia do Zé",
-    "Cavalera",
-    "Black Beard",
-    "Mustache Club",
-    "O Garimpeiro",
-    "Barbearia Imperial",
-    "Barba Ruiva",
-    "Navalha de Ouro",
-    "Corte Supremo",
-    "Estilo Urbano",
-    "Barbearia Vintage",
-    "Clube da Barba",
-    "Alfa Masculino",
-    "Barbearia 1950",
-    "Vikings Barber",
-    "Barba de Respeito",
-    "Ponto do Corte",
-    "Elite Barber",
-    "Saint Germain",
+  const barbershopsData = [
+    {
+      name: "Barbearia Corleone",
+      address: "Rua Augusta, 456 - Consolação, São Paulo - SP",
+    },
+    {
+      name: "Red Navalha",
+      address: "Av. Paulista, 1200 - Bela Vista, São Paulo - SP",
+    },
+    {
+      name: "Barba & Navalha",
+      address: "Rua dos Pinheiros, 789 - Pinheiros, São Paulo - SP",
+    },
+    {
+      name: "Lenhador Urbano",
+      address: "Rua Pamplona, 321 - Jardim Paulista, São Paulo - SP",
+    },
+    {
+      name: "Dom Pedro Barbearia",
+      address: "Alameda Lorena, 150 - Jardins, São Paulo - SP",
+    },
+    {
+      name: "The Shave Club",
+      address: "Av. Brigadeiro Faria Lima, 2200 - Itaim Bibi, São Paulo - SP",
+    },
+    {
+      name: "Barbearia do Zé",
+      address: "Rua Vergueiro, 987 - Vila Mariana, São Paulo - SP",
+    },
+    {
+      name: "Cavalera",
+      address: "Rua Purpurina, 400 - Vila Madalena, São Paulo - SP",
+    },
+    {
+      name: "Black Beard",
+      address: "Av. Rebouças, 3400 - Pinheiros, São Paulo - SP",
+    },
+    {
+      name: "Mustache Club",
+      address: "Rua Domingos de Morais, 120 - Vila Mariana, São Paulo - SP",
+    },
+    {
+      name: "O Garimpeiro",
+      address: "Rua João Cachoeira, 550 - Itaim Bibi, São Paulo - SP",
+    },
+    {
+      name: "Barbearia Imperial",
+      address: "Av. Ibirapuera, 2300 - Moema, São Paulo - SP",
+    },
+    { name: "Barba Ruiva", address: "Rua Clélia, 880 - Lapa, São Paulo - SP" },
+    {
+      name: "Navalha de Ouro",
+      address: "Rua Turiassu, 430 - Perdizes, São Paulo - SP",
+    },
+    {
+      name: "Corte Supremo",
+      address: "Av. Cruzeiro do Sul, 1100 - Santana, São Paulo - SP",
+    },
+    {
+      name: "Estilo Urbano",
+      address: "Rua Juventus, 320 - Mooca, São Paulo - SP",
+    },
+    {
+      name: "Barbearia Vintage",
+      address: "Rua Dr. Zuquim, 450 - Santana, São Paulo - SP",
+    },
+    {
+      name: "Clube da Barba",
+      address:
+        "Av. Engenheiro Caetano Álvares, 2500 - Mandaqui, São Paulo - SP",
+    },
+    {
+      name: "Alfa Masculino",
+      address: "Rua Voluntários da Pátria, 1800 - Santana, São Paulo - SP",
+    },
+    {
+      name: "Barbearia 1950",
+      address: "Av. Braz Leme, 1200 - Santana, São Paulo - SP",
+    },
+    {
+      name: "Vikings Barber",
+      address:
+        "Rua Conselheiro Moreira de Barros, 900 - Lauzane Paulista, São Paulo - SP",
+    },
+    {
+      name: "Barba de Respeito",
+      address: "Alameda Afonso Schmidt, 200 - Santa Teresinha, São Paulo - SP",
+    },
+    {
+      name: "Ponto do Corte",
+      address: "Rua Alfredo Pujol, 600 - Santana, São Paulo - SP",
+    },
+    {
+      name: "Elite Barber",
+      address: "Rua Pedro Doll, 150 - Santana, São Paulo - SP",
+    },
+    {
+      name: "Saint Germain",
+      address: "Rua Francisca Júlia, 300 - Santana, São Paulo - SP",
+    },
   ];
 
   const serviceTemplates = [
@@ -70,13 +144,14 @@ async function main() {
   await prisma.barbershopService.deleteMany();
   await prisma.barbershop.deleteMany();
 
-  for (let i = 0; i < barbershopNames.length; i++) {
-    const name = barbershopNames[i];
+  for (let i = 0; i < barbershopsData.length; i++) {
+    const shop = barbershopsData[i];
     const shopIndex = i + 1;
 
     const barbershop = await prisma.barbershop.create({
       data: {
-        name: name,
+        name: shop.name,
+        address: shop.address,
         description:
           "Referencia em estetica masculina na regiao, oferecendo conforto, atendimento premium e profissionais qualificados.",
         imageUrl:
