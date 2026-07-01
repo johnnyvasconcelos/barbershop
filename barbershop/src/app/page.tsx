@@ -49,7 +49,7 @@ const page = async () => {
   };
   return (
     <>
-      <Header />
+      <Header quickSearchOptions={quickSearchOptions} getIcon={getIcon} />
       <div className="p-5">
         <h2 className="text-xl font-bold">Olá, usuário!</h2>
         <p>Terça-feira 3 de maio</p>
