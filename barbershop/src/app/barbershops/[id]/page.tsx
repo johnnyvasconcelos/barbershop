@@ -1,7 +1,7 @@
-"use client";
-
 import { db } from "@/app/_lib/prisma";
 import { Button } from "../../_components/ui/button";
+import MenuMobile from "@/app/_components/MenuMobile";
+import ButtonClick from "@/app/_components/ButtonClick";
 import Image from "next/image";
 import {
   ChevronLeftIcon,
@@ -9,6 +9,11 @@ import {
   MapPinIcon,
   StarIcon,
   SmartphoneIcon,
+  Scissors,
+  Wand2,
+  Sparkles,
+  Smile,
+  Eye,
 } from "lucide-react";
 import Link from "next/link";
 import ServiceItem from "../../_components/service-item";
@@ -27,6 +32,37 @@ const page = async ({ params }: { params: { id: string } }) => {
     return notFound();
   }
 
+  // categorias da barbearia
+  interface QuickSearchOption {
+    imageUrl: string;
+    title: string;
+  }
+
+  const quickSearchOptions: QuickSearchOption[] = [
+    { imageUrl: "cabelo", title: "Cabelo" },
+    { imageUrl: "barba", title: "Barba" },
+    { imageUrl: "bigode", title: "Bigode" },
+    { imageUrl: "massagem", title: "Massagem" },
+    { imageUrl: "sobrancelha", title: "Sobrancelha" },
+  ];
+
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case "cabelo":
+        return <Scissors size={14} />;
+      case "barba":
+        return <Wand2 size={14} />;
+      case "bigode":
+        return <Sparkles size={14} />;
+      case "massagem":
+        return <Smile size={14} />;
+      case "sobrancelha":
+        return <Eye size={14} />;
+      default:
+        return <Scissors size={14} />;
+    }
+  };
+
   return (
     <>
       {/* IMAGEM */}
@@ -44,6 +80,10 @@ const page = async ({ params }: { params: { id: string } }) => {
         </Button>
         <Button size="icon" className="absolute top-4 right-4" asChild>
           <MenuIcon />
+          <MenuMobile
+            getIcon={getIcon}
+            quickSearchOptions={quickSearchOptions}
+          />
         </Button>
       </div>
       {/* TÍTULO */}
@@ -79,22 +119,13 @@ const page = async ({ params }: { params: { id: string } }) => {
         <h2 className="uppercase font-bold text-xs text-gray-400 mb-3">
           contato
         </h2>
-        {barbershop.phones.map((phone) => (
+        {barbershop?.phones.map((phone) => (
           <div className="flex justify-between" key={phone}>
             <div className="flex gap-2 items-center">
               <SmartphoneIcon />
               <p className="text-sm">{phone}</p>
             </div>
-            <Button
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  navigator.clipboard.writeText(String(phone));
-                }
-              }}
-              variant="outline"
-            >
-              Copiar
-            </Button>
+            <ButtonClick phone={phone} />
           </div>
         ))}
       </div>
