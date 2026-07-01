@@ -7,7 +7,6 @@ import Busca from "./_components/Busca";
 import BuscaRapida from "./_components/BuscaRapida";
 import Agendamentos from "./_components/Agendamentos";
 import Banner from "./_components/Banner";
-import Footer from "./_components/Footer";
 
 const page = async () => {
   // banco de dados
@@ -92,8 +91,6 @@ const page = async () => {
           })}
         </div>
       </div>
-      {/* FOOTER */}
-      <Footer />
     </>
   );
 };

@@ -1,7 +1,15 @@
+"use client";
+
 import { db } from "@/app/_lib/prisma";
 import { Button } from "../../_components/ui/button";
 import Image from "next/image";
-import { ChevronLeftIcon, MenuIcon, MapPinIcon, StarIcon } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  MenuIcon,
+  MapPinIcon,
+  StarIcon,
+  SmartphoneIcon,
+} from "lucide-react";
 import Link from "next/link";
 import ServiceItem from "../../_components/service-item";
 import { notFound } from "next/navigation";
@@ -65,6 +73,30 @@ const page = async ({ params }: { params: { id: string } }) => {
             <ServiceItem key={service.id} service={service} />
           ))}
         </div>
+      </div>
+      {/* CONTATO */}
+      <div className="p-5 mt-4 space-y-3">
+        <h2 className="uppercase font-bold text-xs text-gray-400 mb-3">
+          contato
+        </h2>
+        {barbershop.phones.map((phone) => (
+          <div className="flex justify-between" key={phone}>
+            <div className="flex gap-2 items-center">
+              <SmartphoneIcon />
+              <p className="text-sm">{phone}</p>
+            </div>
+            <Button
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  navigator.clipboard.writeText(String(phone));
+                }
+              }}
+              variant="outline"
+            >
+              Copiar
+            </Button>
+          </div>
+        ))}
       </div>
     </>
   );

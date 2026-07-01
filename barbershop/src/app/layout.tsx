@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Footer from "./_components/Footer";
 // @ts-expect-error - TS check disabled for css import
 import "./globals.css";
 
@@ -29,6 +30,8 @@ export default function RootLayout({
     <html lang="pt-BR" className="dark" style={{ colorScheme: "dark" }}>
       <body className="bg-background text-foreground antialiased">
         {children}
+        {/* FOOTER */}
+        <Footer />
       </body>
     </html>
   );
