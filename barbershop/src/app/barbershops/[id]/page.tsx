@@ -73,13 +73,12 @@ const page = async ({ params }: { params: { id: string } }) => {
           fill
           className="object-cover"
         />
-        <Button size="icon" className="absolute top-4 left-4" asChild>
+        <Button size="icon" className="absolute top-4 left-4">
           <Link href="/">
             <ChevronLeftIcon />
           </Link>
         </Button>
-        <Button size="icon" className="absolute top-4 right-4" asChild>
-          <MenuIcon />
+        <Button size="icon" className="absolute top-4 right-4">
           <MenuMobile
             getIcon={getIcon}
             quickSearchOptions={quickSearchOptions}
