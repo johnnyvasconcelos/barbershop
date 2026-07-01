@@ -7,7 +7,7 @@ const Banner = () => {
           src="/banner-01.webp"
           alt="agende no barbershop."
           fill
-          className="object-contain rounded-xl"
+          className="object-contain rounded"
         />
       </div>
     </>
