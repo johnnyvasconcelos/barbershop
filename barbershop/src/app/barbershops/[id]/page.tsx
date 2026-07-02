@@ -78,10 +78,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           </Link>
         </Button>
         <Button size="icon" className="absolute top-4 right-4">
-          <MenuMobile
-            getIcon={getIcon}
-            quickSearchOptions={quickSearchOptions}
-          />
+          <MenuMobile quickSearchOptions={quickSearchOptions} />
         </Button>
       </div>
       {/* TÍTULO */}

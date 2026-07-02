@@ -4,6 +4,19 @@ import MenuMobile from "../_components/MenuMobile";
 import Image from "next/image";
 
 const Header = () => {
+  // categorias da barbearia
+  interface QuickSearchOption {
+    imageUrl: string;
+    title: string;
+  }
+
+  const quickSearchOptions: QuickSearchOption[] = [
+    { imageUrl: "cabelo", title: "Cabelo" },
+    { imageUrl: "barba", title: "Barba" },
+    { imageUrl: "bigode", title: "Bigode" },
+    { imageUrl: "massagem", title: "Massagem" },
+    { imageUrl: "sobrancelha", title: "Sobrancelha" },
+  ];
   return (
     <Card>
       <CardContent className="p-5 flex flex-row justify-between items-center">

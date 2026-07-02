@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "./ui/button";
-const ButtonClick = ({ phone }) => {
+const ButtonClick = ({ phone }: { phone: string | number }) => {
   return (
     <Button
       onClick={() => {
