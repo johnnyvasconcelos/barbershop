@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Footer from "./_components/Footer";
 // @ts-expect-error - TS check disabled for css import
 import "./globals.css";
+import AuthProvider from "./_providers/auth";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="dark" style={{ colorScheme: "dark" }}>
       <body className="bg-background text-foreground antialiased">
-        {children}
-        {/* FOOTER */}
-        <Footer />
+        <AuthProvider>
+          {children}
+          {/* FOOTER */}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
