@@ -1,4 +1,5 @@
 import { Scissors, Wand2, Sparkles, Smile, Eye } from "lucide-react";
+import Link from "next/link";
 
 interface QuickSearchButtonProps {
   imageUrl: string;
@@ -28,8 +29,13 @@ export default function QuickSearchButton({
 
   return (
     <button className="flex flex-row flex-shrink-0 items-center gap-2 text-white p-3 rounded-xl border border-gray-800 bg-zinc-950 text-nowrap transition-colors hover:bg-zinc-900">
-      {getIcon(imageUrl)}
-      <span className="text-sm">{title}</span>
+      <Link
+        className="flex justify-between gap-2"
+        href={`/barbershops?search=${title}`}
+      >
+        {getIcon(imageUrl)}
+        <span className="text-sm">{title}</span>
+      </Link>
     </button>
   );
 }

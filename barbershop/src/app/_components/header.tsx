@@ -2,6 +2,7 @@ import { Card, CardContent } from "./ui/card";
 
 import MenuMobile from "../_components/MenuMobile";
 import Image from "next/image";
+import Link from "next/link";
 
 const Header = () => {
   // categorias da barbearia
@@ -20,12 +21,14 @@ const Header = () => {
   return (
     <Card>
       <CardContent className="p-5 flex flex-row justify-between items-center">
-        <Image
-          src="/logo.webp"
-          height={18}
-          width={120}
-          alt="barbershop - logo."
-        />
+        <Link href="/">
+          <Image
+            src="/logo.webp"
+            height={18}
+            width={120}
+            alt="barbershop - logo."
+          />
+        </Link>
         <MenuMobile quickSearchOptions={quickSearchOptions} />
       </CardContent>
     </Card>

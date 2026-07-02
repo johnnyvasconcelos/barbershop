@@ -140,9 +140,12 @@ const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
                   key={option.title}
                   className="flex gap-2 justify-start"
                   variant="ghost"
+                  asChild
                 >
-                  {getIcon(option.imageUrl)}
-                  {option.title}
+                  <Link href={`/barbershops?search=${option.title}`}>
+                    {getIcon(option.imageUrl)}
+                    {option.title}
+                  </Link>
                 </Button>
               ),
             )}

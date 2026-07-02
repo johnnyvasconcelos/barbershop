@@ -12,10 +12,24 @@ import Header from "../_components/header";
 const BarbershopPage = async ({ searchParams }: BarbershopPageProps) => {
   const barbershops = await db.barbershop.findMany({
     where: {
-      name: {
-        contains: searchParams?.search,
-        mode: "insensitive",
-      },
+      OR: [
+        {
+          name: {
+            contains: searchParams?.search,
+            mode: "insensitive",
+          },
+        },
+        {
+          services: {
+            some: {
+              name: {
+                contains: searchParams?.search,
+                mode: "insensitive",
+              },
+            },
+          },
+        },
+      ],
     },
   });
   return (
