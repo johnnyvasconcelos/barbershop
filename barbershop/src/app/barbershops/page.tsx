@@ -7,6 +7,7 @@ interface BarbershopPageProps {
 import { db } from "../_lib/prisma";
 import BarberShopItem from "../_components/barbershop-item";
 import Busca from "../_components/Busca";
+import Header from "../_components/header";
 
 const BarbershopPage = async ({ searchParams }: BarbershopPageProps) => {
   const barbershops = await db.barbershop.findMany({
@@ -22,6 +23,7 @@ const BarbershopPage = async ({ searchParams }: BarbershopPageProps) => {
       <h2 className="text-xs mt-6 mb-5 font-bold uppercase">
         Resultados para "{searchParams?.search}"
       </h2>
+      <Header />
       <Busca />
       <div className="grid mt-6 grid-cols-2 gap-4">
         {barbershops.map((barbershop) => (

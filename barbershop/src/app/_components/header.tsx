@@ -3,7 +3,7 @@ import { Card, CardContent } from "./ui/card";
 import MenuMobile from "../_components/MenuMobile";
 import Image from "next/image";
 
-const Header = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
+const Header = () => {
   return (
     <Card>
       <CardContent className="p-5 flex flex-row justify-between items-center">
