@@ -3,13 +3,7 @@ import { Card, CardContent } from "./ui/card";
 import MenuMobile from "../_components/MenuMobile";
 import Image from "next/image";
 
-const Header = ({
-  quickSearchOptions,
-  getIcon,
-}: {
-  quickSearchOptions: any[];
-  getIcon: (iconName: string) => any;
-}) => {
+const Header = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
   return (
     <Card>
       <CardContent className="p-5 flex flex-row justify-between items-center">
@@ -19,7 +13,7 @@ const Header = ({
           width={120}
           alt="barbershop - logo."
         />
-        <MenuMobile getIcon={getIcon} quickSearchOptions={quickSearchOptions} />
+        <MenuMobile quickSearchOptions={quickSearchOptions} />
       </CardContent>
     </Card>
   );

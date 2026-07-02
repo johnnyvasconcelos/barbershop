@@ -1,8 +1,6 @@
 import Header from "./_components/header";
 import { db } from "./_lib/prisma";
 import BarberShopItem from "./_components/barbershop-item";
-import { Scissors, Wand2, Sparkles, Smile, Eye } from "lucide-react";
-
 import Busca from "./_components/Busca";
 import BuscaRapida from "./_components/BuscaRapida";
 import Agendamentos from "./_components/Agendamentos";
@@ -31,25 +29,9 @@ const page = async () => {
     { imageUrl: "sobrancelha", title: "Sobrancelha" },
   ];
 
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case "cabelo":
-        return <Scissors size={14} />;
-      case "barba":
-        return <Wand2 size={14} />;
-      case "bigode":
-        return <Sparkles size={14} />;
-      case "massagem":
-        return <Smile size={14} />;
-      case "sobrancelha":
-        return <Eye size={14} />;
-      default:
-        return <Scissors size={14} />;
-    }
-  };
   return (
     <>
-      <Header quickSearchOptions={quickSearchOptions} getIcon={getIcon} />
+      <Header quickSearchOptions={quickSearchOptions} />
       <div className="p-5">
         <h2 className="text-xl font-bold">Olá, usuário!</h2>
         <p>Terça-feira 3 de maio</p>
