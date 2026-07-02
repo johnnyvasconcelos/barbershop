@@ -5,7 +5,6 @@ import ButtonClick from "@/app/_components/ButtonClick";
 import Image from "next/image";
 import {
   ChevronLeftIcon,
-  MenuIcon,
   MapPinIcon,
   StarIcon,
   SmartphoneIcon,

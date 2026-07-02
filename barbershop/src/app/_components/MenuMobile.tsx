@@ -7,8 +7,23 @@ import {
   SheetClose,
 } from "./ui/sheet";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "./ui/button";
-import { MenuIcon, HomeIcon, CalendarIcon, LogOutIcon } from "lucide-react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogHeader,
+} from "./ui/dialog";
+import {
+  MenuIcon,
+  HomeIcon,
+  CalendarIcon,
+  LogOutIcon,
+  LogInIcon,
+} from "lucide-react";
 import { Avatar, AvatarImage } from "../_components/ui/avatar";
 const MenuMobile = ({
   quickSearchOptions,
@@ -31,7 +46,33 @@ const MenuMobile = ({
             <SheetTitle className="text-left">Menu</SheetTitle>
           </SheetHeader>
 
-          <div className="px-5 py-4 flex items-center gap-4 border-b border-solid">
+          <div className="px-5 py-4 flex items-center justify-between gap-4 border-b border-solid">
+            <h2 className="font-bold text-lg">Olá, faça seu login!</h2>
+            <Dialog>
+              <DialogTrigger>
+                <Button size="icon">
+                  <LogInIcon />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-background wi[90%]">
+                <DialogHeader>
+                  <DialogTitle>Faça login na plataforma</DialogTitle>
+                  <DialogDescription>
+                    Conecte-se usando sua conta Google
+                  </DialogDescription>
+                </DialogHeader>
+                <Button variant="outline" className="gap-2 font-bold">
+                  <Image
+                    alt="google icon svg"
+                    width={18}
+                    height={18}
+                    src="/google.svg"
+                  />
+                  Google
+                </Button>
+              </DialogContent>
+            </Dialog>
+            {/*
             <Avatar>
               <AvatarImage src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></AvatarImage>
             </Avatar>
@@ -39,7 +80,9 @@ const MenuMobile = ({
               <p className="font-bold">Usuário</p>
               <p className="text-xs">user@gmail.com</p>
             </div>
+                   */}
           </div>
+
           <div className="p-5 flex flex-col gap-4 border-b border-solid">
             <Button className="flex gap-2 justify-start" asChild>
               <SheetClose asChild>
