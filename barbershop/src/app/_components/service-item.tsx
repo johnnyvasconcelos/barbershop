@@ -7,12 +7,16 @@ import { Card, CardContent } from "./ui/card";
 import { Calendar } from "./ui/calendar";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
+import { set } from "date-fns/set";
+import { useSession } from "next-auth/react";
 import {
   Sheet,
   SheetTrigger,
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetFooter,
+  SheetClose,
 } from "./ui/sheet";
 interface ServiceItemProps {
   service: BarbershopService;
@@ -20,8 +24,10 @@ interface ServiceItemProps {
 }
 
 import { format } from "date-fns/format";
+import { createBooking } from "../_actions/create-booking";
 
 const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
+  const { data } = useSession();
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
@@ -57,6 +63,26 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
     "17:30",
     "18:00",
   ];
+
+  const handleCreateBooking = async () => {
+    if (!selectedDay || !selectedTime || !data?.user) {
+      return;
+    }
+
+    const hour = Number(selectedTime.split(":")[0]);
+    const minute = Number(selectedTime.split(":")[1]);
+
+    const newDate = set(selectedDay, {
+      hours: hour,
+      minutes: minute,
+    });
+
+    await createBooking({
+      serviceId: service.id ?? "",
+      userId: data.user.email ?? "",
+      date: newDate,
+    });
+  };
   return (
     <Card>
       <CardContent className="flex rounded-xl items-center gap-3 p-3">
@@ -172,6 +198,13 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                         </CardContent>
                       </Card>
                     </div>
+                  )}
+                  {selectedDay && selectedTime && (
+                    <SheetFooter>
+                      <SheetClose asChild>
+                        <Button type="submit">Salvar</Button>
+                      </SheetClose>
+                    </SheetFooter>
                   )}
                 </div>
               </SheetContent>
