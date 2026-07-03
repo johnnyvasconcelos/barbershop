@@ -79,7 +79,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
 
     await createBooking({
       serviceId: service.id ?? "",
-      userId: data.user.email ?? "",
+      userId: (data?.user as any).id,
       date: newDate,
     });
   };
