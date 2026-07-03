@@ -88,7 +88,7 @@ const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
               <>
                 <h2 className="font-bold text-lg">Olá, faça seu login!</h2>
                 <Dialog>
-                  <DialogTrigger>
+                  <DialogTrigger asChild>
                     <Button size="icon">
                       <LogInIcon />
                     </Button>
@@ -122,10 +122,12 @@ const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
           <div className="p-5 flex flex-col gap-4 border-b border-solid">
             <Button className="flex gap-2 justify-start" asChild>
               <SheetClose asChild>
-                <Link href="/">
-                  <HomeIcon size={18} />
-                  Início
-                </Link>
+                <Button className="flex gap-2 justify-start" asChild>
+                  <Link href="/">
+                    <HomeIcon size={18} />
+                    Início
+                  </Link>
+                </Button>
               </SheetClose>
             </Button>
             <Button className="flex gap-2 justify-start" variant="ghost">

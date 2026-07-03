@@ -16,6 +16,7 @@ const page = async () => {
   });
 
   // categorias da barbearia
+  /* 
   interface QuickSearchOption {
     imageUrl: string;
     title: string;
@@ -28,10 +29,11 @@ const page = async () => {
     { imageUrl: "massagem", title: "Massagem" },
     { imageUrl: "sobrancelha", title: "Sobrancelha" },
   ];
+  */
 
   return (
     <>
-      <Header quickSearchOptions={quickSearchOptions} />
+      <Header />
       <div className="p-5">
         <h2 className="text-xl font-bold">Olá, usuário!</h2>
         <p>Terça-feira 3 de maio</p>
@@ -39,7 +41,7 @@ const page = async () => {
         <Busca />
 
         {/* BUSCA RÁPIDA */}
-        <BuscaRapida quickSearchOptions={quickSearchOptions} />
+        <BuscaRapida />
 
         {/* BANNER */}
         <Banner />
