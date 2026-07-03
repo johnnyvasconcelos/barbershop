@@ -26,6 +26,7 @@ interface ServiceItemProps {
 import { format } from "date-fns/format";
 import { createBooking } from "../_actions/create-booking";
 import { getBooking } from "../_actions/get-booking";
+import { addDays } from "date-fns/addDays";
 
 const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
   const { data } = useSession();
@@ -155,6 +156,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                     locale={ptBR}
                     selected={selectedDay}
                     onSelect={handleDaySelect}
+                    // fromDate={addDays(new Date(), 1)}
                     className="w-full"
                     classNames={{
                       months: "w-full space-y-4",
