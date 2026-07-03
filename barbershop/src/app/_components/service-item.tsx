@@ -1,12 +1,12 @@
 "use client";
 
-import { Barbershop, BarbershopService } from "@prisma/client";
+import { Barbershop, BarbershopService, Booking } from "@prisma/client";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Calendar } from "./ui/calendar";
 import { ptBR } from "date-fns/locale";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { set } from "date-fns/set";
 import { useSession } from "next-auth/react";
 import {
@@ -25,6 +25,7 @@ interface ServiceItemProps {
 
 import { format } from "date-fns/format";
 import { createBooking } from "../_actions/create-booking";
+import { getBooking } from "../_actions/get-booking";
 
 const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
   const { data } = useSession();
@@ -63,6 +64,39 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
     "17:30",
     "18:00",
   ];
+
+  const getTimeList = (bookings: Booking[]) => {
+    return TIME_LIST.filter((time) => {
+      const hour = Number(time.split(":")[0]);
+      const minutes = Number(time.split(":")[1]);
+      if (
+        bookings.some(
+          (booking) =>
+            booking.date.getHours() === hour &&
+            booking.date.getMinutes() === minutes,
+        )
+      ) {
+        return false;
+      }
+      return true;
+    });
+  };
+
+  const [dayBookings, setDayBookings] = useState<Booking[]>([]);
+
+  useEffect(() => {
+    if (!selectedDay) {
+      return;
+    }
+    const fetch = async () => {
+      const bookings = await getBooking({
+        date: selectedDay,
+        serviceId: service.id,
+      });
+      setDayBookings(bookings);
+    };
+    fetch();
+  }, [selectedDay]);
 
   const handleCreateBooking = async () => {
     if (!selectedDay || !selectedTime || !data?.user) {
@@ -144,7 +178,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                   />
                   {selectedDay && (
                     <div className="border-b border-solid p-4 mt-3 gap-3 overflow-x-auto flex [&::-webkit-scrollbar]:hidden">
-                      {TIME_LIST.map((time) => (
+                      {getTimeList(dayBookings).map((time) => (
                         <Button
                           key={time}
                           variant={
@@ -202,7 +236,9 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                   {selectedDay && selectedTime && (
                     <SheetFooter>
                       <SheetClose asChild>
-                        <Button type="submit">Salvar</Button>
+                        <Button type="submit" onClick={handleCreateBooking}>
+                          Salvar
+                        </Button>
                       </SheetClose>
                     </SheetFooter>
                   )}
