@@ -10,17 +10,10 @@ import {
   SheetTitle,
   SheetClose,
 } from "./ui/sheet";
+import { SignInDialog } from "./sign-in-dialog";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "./ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogHeader,
-} from "./ui/dialog";
+import { Dialog, DialogTrigger } from "./ui/dialog";
 import {
   MenuIcon,
   HomeIcon,
@@ -35,9 +28,6 @@ import {
 } from "lucide-react";
 import { signIn, signOut } from "next-auth/react";
 const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
-  const handleClickWithGoogleClick = async () => {
-    await signIn("google");
-  };
   const handleSignOut = () => {
     signOut();
   };
@@ -93,27 +83,7 @@ const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
                       <LogInIcon />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="bg-background wi[90%]">
-                    <DialogHeader>
-                      <DialogTitle>Faça login na plataforma</DialogTitle>
-                      <DialogDescription>
-                        Conecte-se usando sua conta Google
-                      </DialogDescription>
-                    </DialogHeader>
-                    <Button
-                      variant="outline"
-                      className="gap-2 font-bold"
-                      onClick={handleClickWithGoogleClick}
-                    >
-                      <Image
-                        alt="google icon svg"
-                        width={18}
-                        height={18}
-                        src="/google.svg"
-                      />
-                      Google
-                    </Button>
-                  </DialogContent>
+                  <SignInDialog />
                 </Dialog>
               </>
             )}
@@ -130,9 +100,15 @@ const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
                 </Button>
               </SheetClose>
             </Button>
-            <Button className="flex gap-2 justify-start" variant="ghost">
-              <CalendarIcon size={18} />
-              Agendamentos
+            <Button
+              className="flex gap-2 justify-start"
+              variant="ghost"
+              asChild
+            >
+              <Link href="/bookings">
+                <CalendarIcon size={18} />
+                Agendamentos
+              </Link>
             </Button>
           </div>
           <div className="px-5 py-4 flex flex-col gap-4 border-b border-solid">

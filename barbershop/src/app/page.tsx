@@ -5,31 +5,32 @@ import Busca from "./_components/Busca";
 import BuscaRapida from "./_components/BuscaRapida";
 import Agendamentos from "./_components/Agendamentos";
 import Banner from "./_components/Banner";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
 
 const page = async () => {
   // banco de dados
+  const session = await getServerSession(authOptions);
   const barbershops = await db.barbershop.findMany({});
+  const bookings = session?.user
+    ? await db.booking.findMany({
+        where: {
+          userId: (session?.user as any)?.id,
+        },
+        include: {
+          service: {
+            include: {
+              barbershop: true,
+            },
+          },
+        },
+      })
+    : [];
   const popularBank = await db.barbershop.findMany({
     orderBy: {
       name: "desc",
     },
   });
-
-  // categorias da barbearia
-  /* 
-  interface QuickSearchOption {
-    imageUrl: string;
-    title: string;
-  }
-
-  const quickSearchOptions: QuickSearchOption[] = [
-    { imageUrl: "cabelo", title: "Cabelo" },
-    { imageUrl: "barba", title: "Barba" },
-    { imageUrl: "bigode", title: "Bigode" },
-    { imageUrl: "massagem", title: "Massagem" },
-    { imageUrl: "sobrancelha", title: "Sobrancelha" },
-  ];
-  */
 
   return (
     <>
@@ -50,7 +51,12 @@ const page = async () => {
         <h2 className="text-xs font-bold mt-5 text-gray-400 uppercase">
           Agendamentos
         </h2>
-        <Agendamentos />
+
+        <div className="flex flex-col space-y-3">
+          {bookings?.map((booking) => (
+            <Agendamentos key={booking.id} booking={booking} />
+          ))}
+        </div>
 
         {/* RECOMENDADOS (DB) */}
         <h2 className="text-xs font-bold mt-6 text-gray-400 uppercase">
