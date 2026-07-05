@@ -10,35 +10,29 @@ import { ptBR } from "date-fns/locale";
 import { Prisma } from "@prisma/client";
 import { db } from "../_lib/prisma";
 import ButtonClick from "./ButtonClick";
+
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
     include: {
       service: {
         include: {
-          barbershop: {
-            include: {
-              phones: true;
-            };
-          };
+          barbershop: true;
         };
       };
     };
   }>;
 }
-const bookings = await db.booking.findMany({
-  include: {
-    service: {
-      include: {
-        barbershop: {
-          include: {
-            phones: true, // Garante que o banco de dados vai retornar a lista de telefones
-          },
+
+const Agendamentos = async ({ booking }: BookingItemProps) => {
+  const bookings = await db.booking.findMany({
+    include: {
+      service: {
+        include: {
+          barbershop: true,
         },
       },
     },
-  },
-});
-onst Agendamentos = ({ booking }: BookingItemProps) => {
+  });
   const isConfirmed = isFuture(booking.date);
   return (
     <>
@@ -153,7 +147,7 @@ onst Agendamentos = ({ booking }: BookingItemProps) => {
               </CardContent>
             </Card>
 
-            <div className="mt-4 flex flex-col gap-3">
+            <div className="mt-4 flex flex-col gap-2">
               {booking.service.barbershop.phones.map((phone) => (
                 <ButtonClick key={phone} phone={phone} />
               ))}

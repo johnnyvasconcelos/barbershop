@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "./ui/button";
+
 const ButtonClick = ({ phone }: { phone: string | number }) => {
   return (
     <Button
@@ -9,8 +10,10 @@ const ButtonClick = ({ phone }: { phone: string | number }) => {
         }
       }}
       variant="outline"
+      className="w-full flex justify-between items-center p-4"
     >
-      Copiar
+      <span className="text-sm">{phone}</span>
+      <span className="text-muted-foreground text-xs font-light">Copiar</span>
     </Button>
   );
 };
