@@ -4,6 +4,7 @@ import { Barbershop, BarbershopService, Booking } from "@prisma/client";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
+import CardDetails from "./CardDetails";
 import { Calendar } from "./ui/calendar";
 import { ptBR } from "date-fns/locale";
 import { useEffect, useState } from "react";
