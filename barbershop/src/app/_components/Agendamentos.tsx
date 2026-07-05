@@ -1,15 +1,33 @@
+// "use client";
+
 import { Badge } from "../_components/ui/badge";
 import { Card, CardContent } from "../_components/ui/card";
 import { Avatar, AvatarImage } from "../_components/ui/avatar";
 import { isFuture } from "date-fns/isFuture";
-import { Sheet, SheetTrigger } from "../_components/ui/sheet";
+import { Sheet, SheetClose, SheetTrigger } from "../_components/ui/sheet";
+// import { useState } from "react";
 import { SheetContent, SheetHeader, SheetTitle } from "../_components/ui/sheet";
+// import { toast } from "../_components/ui/use-toast";
+import { SheetFooter } from "../_components/ui/sheet";
 import Image from "next/image";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Prisma } from "@prisma/client";
 import { db } from "../_lib/prisma";
 import ButtonClick from "./ButtonClick";
+import { Button } from "./ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+import { deleteBooking } from "../_actions/delete-booking";
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -34,6 +52,21 @@ const Agendamentos = async ({ booking }: BookingItemProps) => {
     },
   });
   const isConfirmed = isFuture(booking.date);
+  const handleCancelBookingClick = async () => {
+    try {
+      await deleteBooking(booking.id);
+      // toast.success("Reserva cancelada com sucesso!");
+      // setIsSheetOpen(false);
+    } catch (error) {
+      console.error("Erro ao cancelar a reserva:", error);
+      // toast.error("Ocorreu um erro ao cancelar a reserva. Tente novamente.");
+    }
+  };
+
+  // const [isSheetOpen, setIsSheetOpen] = useState(false);
+  // const handleSheetOpenChange = (open: boolean) => {
+  //   setIsSheetOpen(open);
+  // };
   return (
     <>
       <Sheet>
@@ -152,6 +185,46 @@ const Agendamentos = async ({ booking }: BookingItemProps) => {
                 <ButtonClick key={phone} phone={phone} />
               ))}
             </div>
+            <SheetFooter className="mt-4">
+              <div className="flex justify-between w-full gap-3 mt-4">
+                <SheetClose asChild>
+                  <Button variant="outline" className="flex-1">
+                    Voltar
+                  </Button>
+                </SheetClose>
+                {isConfirmed && (
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="destructive"
+                        className="flex-1 bg-red-500"
+                      >
+                        Cancelar reserva
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-background">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Cancelar Reserva?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Tem certeza que deseja cancelar a reserva? Esta ação
+                          não pode ser desfeita.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Voltar</AlertDialogCancel>
+                        <AlertDialogAction
+                          variant="secondary"
+                          className="bg-red-500"
+                          // onClick={handleCancelBookingClick}
+                        >
+                          Confirmar
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                )}
+              </div>
+            </SheetFooter>
           </div>
         </SheetContent>
       </Sheet>
