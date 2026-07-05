@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Footer from "./_components/Footer";
-// @ts-expect-error - TS check disabled for css import
 import "./globals.css";
 import AuthProvider from "./_providers/auth";
 
