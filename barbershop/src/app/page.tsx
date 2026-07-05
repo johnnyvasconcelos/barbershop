@@ -5,7 +5,7 @@ import Busca from "./_components/Busca";
 import BuscaRapida from "./_components/BuscaRapida";
 import Agendamentos from "./_components/Agendamentos";
 import Banner from "./_components/Banner";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/_lib/auth";
 import { getServerSession } from "next-auth/next";
 
 const page = async () => {

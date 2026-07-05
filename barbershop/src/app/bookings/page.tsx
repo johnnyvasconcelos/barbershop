@@ -1,7 +1,7 @@
 import Header from "../_components/header";
 import { db } from "../_lib/prisma";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/_lib/auth";
 import { notFound } from "next/navigation";
 import Agendamento from "../_components/Agendamentos";
 
