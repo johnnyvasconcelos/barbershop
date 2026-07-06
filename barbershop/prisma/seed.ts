@@ -140,6 +140,17 @@ async function main() {
     },
   ];
 
+  const barbershopImages = [
+    "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1596728325488-58c87691e9af?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1512864084360-7c0c4d0a0845?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=400&auto=format&fit=crop",
+  ];
+
   await prisma.booking.deleteMany();
   await prisma.barbershopService.deleteMany();
   await prisma.barbershop.deleteMany();
@@ -147,6 +158,7 @@ async function main() {
   for (let i = 0; i < barbershopsData.length; i++) {
     const shop = barbershopsData[i];
     const shopIndex = i + 1;
+    const chosenImageUrl = barbershopImages[i % barbershopImages.length];
 
     const barbershop = await prisma.barbershop.create({
       data: {
@@ -154,8 +166,7 @@ async function main() {
         address: shop.address,
         description:
           "Referencia em estetica masculina na regiao, oferecendo conforto, atendimento premium e profissionais qualificados.",
-        imageUrl:
-          "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=400&auto=format&fit=crop",
+        imageUrl: chosenImageUrl,
         phones: ["11 99999-100" + shopIndex, "11 3333-200" + shopIndex],
       },
     });

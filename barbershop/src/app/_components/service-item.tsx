@@ -146,7 +146,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
 
             <Sheet>
               <SheetTrigger asChild>
-                <Button className="rounded-md" variant="outline" size="sm">
+                <Button className="rounded-md" variant="default" size="xs">
                   Reservar
                 </Button>
               </SheetTrigger>
@@ -157,32 +157,13 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                     <SheetHeader className="border-b border-solid">
                       <SheetTitle>Fazer Reserva</SheetTitle>
                     </SheetHeader>
-                    <div className="p-5">
+                    <div className="p-4">
                       <Calendar
                         mode="single"
                         locale={ptBR}
                         selected={selectedDay}
                         onSelect={handleDaySelect}
-                        className="w-full"
-                        classNames={{
-                          months: "w-full space-y-4",
-                          month: "w-full space-y-4",
-                          month_caption:
-                            "w-full flex justify-center items-center py-2 relative min-h-[36px]",
-                          caption_label: "text-sm font-medium capitalize",
-                          nav: "absolute left-0 right-0 flex justify-between items-center z-10 px-1 pointer-events-none",
-                          button_previous:
-                            "h-7 w-7 bg-transparent p-0 text-muted-foreground hover:opacity-100 pointer-events-auto",
-                          button_next:
-                            "h-7 w-7 bg-transparent p-0 text-muted-foreground hover:opacity-100 pointer-events-auto",
-                          month_grid: "w-full border-collapse space-y-1",
-                          week: "flex w-full mt-2 justify-between",
-                          weekday:
-                            "text-muted-foreground rounded-md w-full font-normal text-[0.8rem] capitalize text-center",
-                          day: "w-full p-0 relative text-center text-sm flex items-center justify-center",
-                          day_button:
-                            "w-full h-9 flex items-center justify-center p-0 font-normal aria-selected:opacity-100",
-                        }}
+                        className="rounded-md w-full border mx-auto"
                       />
                       {selectedDay && (
                         <div className="border-b border-solid p-4 mt-3 gap-3 overflow-x-auto flex [&::-webkit-scrollbar]:hidden">
@@ -202,7 +183,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                       )}
 
                       {selectedTime && (
-                        <div className="p-5">
+                        <div className="p-4">
                           <Card>
                             <CardContent className="p-3 space-y-3">
                               <div className="flex justify-between items-center">
