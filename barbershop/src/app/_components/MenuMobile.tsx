@@ -53,12 +53,12 @@ const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
     <>
       <Sheet>
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline">
-            <MenuIcon />
+          <Button size="icon" variant="outline" className="w-[40px] h-[40px]">
+            <MenuIcon className="w-6 h-6" />
           </Button>
         </SheetTrigger>
 
-        <SheetContent className="bg-background">
+        <SheetContent className="bg-background shadow-2xl">
           <SheetHeader>
             <SheetTitle className="text-left">Menu</SheetTitle>
           </SheetHeader>

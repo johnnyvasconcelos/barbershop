@@ -28,6 +28,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="dark" style={{ colorScheme: "dark" }}>
+      <meta name="robots" content="noindex, nofollow" />
+      <link rel="icon" type="image/x-icon" href="/favicon.ico"></link>
       <body className="bg-background text-foreground antialiased">
         <AuthProvider>
           {children}
