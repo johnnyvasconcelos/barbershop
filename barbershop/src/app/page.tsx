@@ -7,10 +7,12 @@ import Agendamentos from "./_components/Agendamentos";
 import Banner from "./_components/Banner";
 import { authOptions } from "@/app/_lib/auth";
 import { getServerSession } from "next-auth/next";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 const page = async () => {
   // banco de dados
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) || undefined;
   const barbershops = await db.barbershop.findMany({});
   const bookings = session?.user
     ? await db.booking.findMany({
@@ -36,8 +38,10 @@ const page = async () => {
     <>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, usuário!</h2>
-        <p>Terça-feira 3 de maio</p>
+        <h2 className="text-xl font-bold">
+          Olá, {session?.user?.name?.split(" ")[0] ?? "Usuário"}!
+        </h2>
+        <p>{format(new Date(), "EEEE, d 'de' MMMM", { locale: ptBR })}</p>
         {/* BUSCA */}
         <Busca />
 
@@ -48,15 +52,24 @@ const page = async () => {
         <Banner />
 
         {/* AGENDAMENTO */}
-        <h2 className="text-xs font-bold mt-5 text-gray-400 uppercase">
-          Agendamentos
-        </h2>
+        {session && (
+          <>
+            <h2 className="text-xs font-bold mt-5 text-gray-400 uppercase">
+              Agendamentos
+            </h2>
 
-        <div className="flex flex-col space-y-3">
-          {bookings?.map((booking) => (
-            <Agendamentos key={booking.id} booking={booking} />
-          ))}
-        </div>
+            <div className="flex flex-col space-y-3">
+              {bookings?.map((booking) => (
+                <Agendamentos key={booking.id} booking={booking} />
+              ))}
+              {bookings?.length === 0 && (
+                <p className="text-gray-400 text-sm mt-4">
+                  Nenhum agendamento encontrado.
+                </p>
+              )}
+            </div>
+          </>
+        )}
 
         {/* RECOMENDADOS (DB) */}
         <h2 className="text-xs font-bold mt-6 text-gray-400 uppercase">
