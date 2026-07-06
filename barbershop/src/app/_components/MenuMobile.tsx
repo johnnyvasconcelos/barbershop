@@ -100,16 +100,18 @@ const MenuMobile = ({ quickSearchOptions }: { quickSearchOptions: any[] }) => {
                 </Button>
               </SheetClose>
             </Button>
-            <Button
-              className="flex gap-2 justify-start"
-              variant="ghost"
-              asChild
-            >
-              <Link href="/bookings">
-                <CalendarIcon size={18} />
-                Agendamentos
-              </Link>
-            </Button>
+            {data?.user && (
+              <Button
+                className="flex gap-2 justify-start"
+                variant="ghost"
+                asChild
+              >
+                <Link href="/bookings">
+                  <CalendarIcon size={18} />
+                  Agendamentos
+                </Link>
+              </Button>
+            )}
           </div>
           <div className="px-5 py-4 flex flex-col gap-4 border-b border-solid">
             {quickSearchOptions.map(

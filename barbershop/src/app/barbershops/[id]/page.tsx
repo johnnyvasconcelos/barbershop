@@ -72,12 +72,15 @@ const page = async ({ params }: { params: { id: string } }) => {
           fill
           className="object-cover"
         />
-        <Button size="icon" className="absolute top-4 left-4">
+        <Button size="icon" className="absolute top-4 left-4 w-[40px] h-[40px]">
           <Link href="/">
             <ChevronLeftIcon />
           </Link>
         </Button>
-        <Button size="icon" className="absolute top-4 right-4">
+        <Button
+          size="icon"
+          className="absolute top-4 right-4 w-[40px] h-[40px]"
+        >
           <MenuMobile quickSearchOptions={quickSearchOptions} />
         </Button>
       </div>
@@ -114,17 +117,21 @@ const page = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       {/* CONTATO */}
-      <div className="p-5 mt-4 space-y-3">
+      <div className="p-5 mt-4 space-y-2">
         <h2 className="uppercase font-bold text-xs text-gray-400 mb-3">
           contato
         </h2>
         {barbershop?.phones.map((phone) => (
-          <div className="flex justify-between" key={phone}>
-            <div className="flex gap-2 items-center">
-              <SmartphoneIcon />
-              <p className="text-sm">{phone}</p>
+          <div
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors"
+            key={phone}
+          >
+            <div className="text-muted-foreground flex-shrink-0">
+              <SmartphoneIcon className="h-5 w-5" />
             </div>
-            <ButtonClick phone={phone} />
+            <div className="flex-1">
+              <ButtonClick phone={phone} />
+            </div>
           </div>
         ))}
       </div>
