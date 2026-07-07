@@ -31,6 +31,7 @@ import { format } from "date-fns/format";
 import { createBooking } from "../_actions/create-booking";
 import { getBooking } from "../_actions/get-booking";
 import { addDays } from "date-fns/addDays";
+import { toast } from "sonner";
 
 const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
   const { data } = useSession();
@@ -120,6 +121,10 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
       serviceId: service.id ?? "",
       userId: (data?.user as any).id,
       date: newDate,
+    });
+
+    toast.success("Agendado realizado com sucesso!", {
+      description: "Agendamento realizado com sucesso.",
     });
   };
   return (
@@ -232,7 +237,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                         <SheetFooter>
                           <SheetClose asChild>
                             <Button type="submit" onClick={handleCreateBooking}>
-                              Salvar
+                              Agendar
                             </Button>
                           </SheetClose>
                         </SheetFooter>

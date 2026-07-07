@@ -1,21 +1,20 @@
-// "use client";
+"use client";
 
 import { Badge } from "../_components/ui/badge";
 import { Card, CardContent } from "../_components/ui/card";
 import { Avatar, AvatarImage } from "../_components/ui/avatar";
 import { isFuture } from "date-fns/isFuture";
 import { Sheet, SheetClose, SheetTrigger } from "../_components/ui/sheet";
-// import { useState } from "react";
+import { useState } from "react";
 import { SheetContent, SheetHeader, SheetTitle } from "../_components/ui/sheet";
 import { SmartphoneIcon } from "lucide-react";
-// import { toast } from "../_components/ui/use-toast";
 import { SheetFooter } from "../_components/ui/sheet";
 import Image from "next/image";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Prisma } from "@prisma/client";
-import { db } from "../_lib/prisma";
 import ButtonClick from "./ButtonClick";
+import { toast } from "sonner";
 import { Button } from "./ui/button";
 import {
   AlertDialog,
@@ -42,17 +41,7 @@ interface BookingItemProps {
   }>;
 }
 
-const Agendamentos = async ({ booking }: BookingItemProps) => {
-  const bookings = await db.booking.findMany({
-    include: {
-      service: {
-        include: {
-          barbershop: true,
-        },
-      },
-    },
-  });
-
+const Agendamentos = ({ booking }: BookingItemProps) => {
   const serializedBooking = {
     ...booking,
     service: {
@@ -61,22 +50,26 @@ const Agendamentos = async ({ booking }: BookingItemProps) => {
     },
   };
 
+  const [isDeleting, setIsDeleting] = useState(false);
   const isConfirmed = isFuture(serializedBooking.date);
+
   const handleCancelBookingClick = async () => {
+    setIsDeleting(true);
     try {
       await deleteBooking(booking.id);
-      // toast.success("Reserva cancelada com sucesso!");
-      // setIsSheetOpen(false);
+      toast.success("Agendamento removido com sucesso!", {
+        description: "Agende novamente quando quiser.",
+      });
     } catch (error) {
-      console.error("Erro ao cancelar a reserva:", error);
-      // toast.error("Ocorreu um erro ao cancelar a reserva. Tente novamente.");
+      console.error(error);
+      toast.error("Erro ao remover agendamento.", {
+        description: "Tente novamente mais tarde.",
+      });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
-  // const [isSheetOpen, setIsSheetOpen] = useState(false);
-  // const handleSheetOpenChange = (open: boolean) => {
-  //   setIsSheetOpen(open);
-  // };
   return (
     <>
       <Sheet>
@@ -88,14 +81,14 @@ const Agendamentos = async ({ booking }: BookingItemProps) => {
                   className="rounded-xl w-fit"
                   variant={isConfirmed ? "default" : "outline"}
                 >
-                  {isConfirmed ? "Confirmado" : "Pendente"}
+                  {isConfirmed ? "Confirmado" : "Finalizado"}
                 </Badge>
                 <h3>{serializedBooking.service.name}</h3>
                 <div className="flex items-center gap-2">
                   <Avatar className="h-5 w-5">
                     <AvatarImage
                       src={serializedBooking.service.barbershop.imageUrl}
-                    ></AvatarImage>
+                    />
                   </Avatar>
                   <p className="text-sm font-semibold">
                     {serializedBooking.service.barbershop.name}
@@ -110,7 +103,6 @@ const Agendamentos = async ({ booking }: BookingItemProps) => {
                   {format(serializedBooking.date, "dd", { locale: ptBR })}
                 </p>
                 <p className="text-sm">
-                  {" "}
                   {format(serializedBooking.date, "HH:mm", { locale: ptBR })}
                 </p>
               </div>
@@ -152,7 +144,7 @@ const Agendamentos = async ({ booking }: BookingItemProps) => {
               className="rounded-xl w-fit"
               variant={isConfirmed ? "default" : "outline"}
             >
-              {isConfirmed ? "Confirmado" : "Pendente"}
+              {isConfirmed ? "Confirmado" : "Finalizado"}
             </Badge>
 
             <Card className="mt-4">
@@ -239,9 +231,10 @@ const Agendamentos = async ({ booking }: BookingItemProps) => {
                         <AlertDialogAction
                           variant="secondary"
                           className="bg-red-500"
-                          // onClick={handleCancelBookingClick}
+                          onClick={handleCancelBookingClick}
+                          disabled={isDeleting}
                         >
-                          Confirmar
+                          {isDeleting ? "Cancelando..." : "Confirmar"}
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
