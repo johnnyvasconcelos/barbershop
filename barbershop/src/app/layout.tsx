@@ -35,7 +35,12 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           {/* FOOTER */}
-          <Toaster />
+          <Toaster
+            style={{
+              background: "var(--background, #1a1a1c)",
+              color: "var(--foreground, #fff)",
+            }}
+          />
           <Footer />
         </AuthProvider>
       </body>

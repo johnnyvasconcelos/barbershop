@@ -129,7 +129,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
   };
   return (
     <Card>
-      <CardContent className="flex rounded-xl items-center gap-3 p-3">
+      <CardContent className="flex bg-[#1a1a1c] rounded-xl items-center gap-3 p-3">
         <div className="relative min-h-[110px] min-w-[110px]">
           <Image
             alt={service.name}
@@ -138,7 +138,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
             className="object-cover rounded-xl"
           />
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 flex-1">
           <h3 className="font-semibold text-sm">{service.name}</h3>
           <p className="text-gray-400 text-sm">{service.description}</p>
           <div className="flex items-cente justify-between">
@@ -156,7 +156,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                 </Button>
               </SheetTrigger>
 
-              <SheetContent className="bg-[#1a1a1c] border-b border-solid">
+              <SheetContent className="border-b bg-background border-solid">
                 {data?.user ? (
                   <>
                     <SheetHeader className="border-b border-solid">
@@ -168,7 +168,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                         locale={ptBR}
                         selected={selectedDay}
                         onSelect={handleDaySelect}
-                        className="rounded-md w-full border mx-auto"
+                        className="rounded-md bg-[#1a1a1c] w-full border mx-auto"
                       />
                       {selectedDay && (
                         <div className="border-b border-solid p-4 mt-3 gap-3 overflow-x-auto flex [&::-webkit-scrollbar]:hidden">
