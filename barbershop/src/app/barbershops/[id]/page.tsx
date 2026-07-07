@@ -64,49 +64,54 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      {/* IMAGEM */}
-      <div className="relative w-full h-[250px]">
+      {/* IMAGEM E MENU */}
+      <div className="relative w-full h-[250px] md:h-[400px]">
         <Image
           alt={barbershop?.name}
           src={barbershop?.imageUrl}
           fill
           className="object-cover"
         />
-        <Button size="icon" className="absolute top-4 left-4 w-[40px] h-[40px]">
-          <Link href="/">
-            <ChevronLeftIcon />
-          </Link>
-        </Button>
-        <Button
-          size="icon"
-          className="absolute top-4 right-4 w-[40px] h-[40px]"
-        >
-          <MenuMobile quickSearchOptions={quickSearchOptions} />
-        </Button>
+        <div className="absolute top-4 left-0 right-0 max-w-7xl w-full mx-auto flex justify-between px-4">
+          <Button size="icon" className="w-[40px] h-[40px]">
+            <Link href="/">
+              <ChevronLeftIcon />
+            </Link>
+          </Button>
+          <Button size="icon" className="w-[40px] h-[40px]">
+            <MenuMobile quickSearchOptions={quickSearchOptions} />
+          </Button>
+        </div>
       </div>
       {/* TÍTULO */}
       <div className="p-5 border-b border-solid">
-        <h1 className="font-bold text-xl mb-4">{barbershop?.name}</h1>
-        <div className="flex items-center gap-2 mb-2">
-          <MapPinIcon className="text-primary" size={18} />
-          <p className="text-sm">{barbershop.address}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <StarIcon className="primary fill-primary text-primary" size={18} />
-          <p className="text-sm">5.0 (940 avaliações)</p>
+        <div className="max-w-7xl mx-auto">
+          <h1 className="font-bold text-xl mb-4">{barbershop?.name}</h1>
+          <div className="flex items-center gap-2 mb-2">
+            <MapPinIcon className="text-primary" size={18} />
+            <p className="text-sm">{barbershop.address}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <StarIcon className="primary fill-primary text-primary" size={18} />
+            <p className="text-sm">5.0 (940 avaliações)</p>
+          </div>
         </div>
       </div>
       {/* DESCRIÇÃO */}
       <div className="p-5 space-y-3 border-b border-solid">
-        <h2 className="uppercase font-bold text-xs text-gray-400">sobre nós</h2>
-        <p className="text-sm">{barbershop?.description}</p>
+        <div className="max-w-7xl mx-auto">
+          <h2 className="uppercase font-bold text-xs text-gray-400">
+            sobre nós
+          </h2>
+          <p className="text-sm">{barbershop?.description}</p>
+        </div>
       </div>
       {/* SERVIÇOS */}
-      <div className="p-5 space-y-3 border-b border-solid">
+      <div className="p-5 space-y-3 max-w-7xl mx-auto border-b border-solid">
         <h2 className="uppercase font-bold text-xs text-gray-400 mb-3">
           serviços
         </h2>
-        <div className="space-y-3">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-3 space-y-3 md:space-y-0">
           {barbershop?.services.map((service) => (
             <ServiceItem
               barbershop={barbershop}
@@ -117,7 +122,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
       {/* CONTATO */}
-      <div className="p-5 mt-4 space-y-2">
+      <div className="p-5 mt-4 space-y-2 max-w-7xl mx-auto">
         <h2 className="uppercase font-bold text-xs text-gray-400 mb-3">
           contato
         </h2>

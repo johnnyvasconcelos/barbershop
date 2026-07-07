@@ -156,7 +156,7 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
                 </Button>
               </SheetTrigger>
 
-              <SheetContent className="bg-background border-b border-solid">
+              <SheetContent className="bg-[#1a1a1c] border-b border-solid">
                 {data?.user ? (
                   <>
                     <SheetHeader className="border-b border-solid">
