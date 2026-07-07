@@ -66,13 +66,14 @@ const page = async () => {
           </div>
         </div>
       </div>
-      <div className="p-5">
+      <div className="flex flex-col gap-5 p-5 max-w-7xl mx-auto md:hidden">
         {/* BUSCA RÁPIDA */}
         <BuscaRapida />
 
         {/* BANNER */}
         <Banner />
-
+      </div>
+      <div className="p-5 max-w-7xl mx-auto">
         {/* AGENDAMENTO */}
         {session && (
           <>
@@ -80,7 +81,7 @@ const page = async () => {
               Agendamentos
             </h2>
 
-            <div className="flex flex-col space-y-3">
+            <div className="flex overflow-auto gap-4 mt-3 [&::-webkit-scrollbar]:hidden">
               {bookings?.map((booking) => (
                 <Agendamentos key={booking.id} booking={booking} />
               ))}

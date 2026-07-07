@@ -75,7 +75,7 @@ const Agendamentos = ({ booking }: BookingItemProps) => {
       <Sheet>
         <SheetTrigger className="w-full" asChild>
           <Card className="mt-3">
-            <CardContent className="flex justify-between p-0">
+            <CardContent className="flex bg-[#1a1a1c] justify-between p-0">
               <div className="flex flex-col gap-2 py-5 pl-5">
                 <Badge
                   className="rounded-xl w-fit"
