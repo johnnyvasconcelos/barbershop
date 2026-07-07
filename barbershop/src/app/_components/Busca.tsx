@@ -15,7 +15,7 @@ const Busca = () => {
 
   return (
     <>
-      <div className="flex mt-5 flex-row justify-content items-center gap-2">
+      <div className="flex mt-5 max-w-[350px] flex-row justify-content items-center gap-2">
         <Input
           placeholder="Faça sua busca..."
           value={search}

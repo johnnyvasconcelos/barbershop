@@ -14,6 +14,9 @@ const page = async () => {
   // banco de dados
   const session = (await getServerSession(authOptions)) || undefined;
   const barbershops = await db.barbershop.findMany({});
+  const recommendedBarbershops = await db.barbershop.findMany({
+    take: 3,
+  });
   const bookings = session?.user
     ? await db.booking.findMany({
         where: {
@@ -37,14 +40,33 @@ const page = async () => {
   return (
     <>
       <Header />
-      <div className="p-5">
-        <h2 className="text-xl font-bold">
-          Olá, {session?.user?.name?.split(" ")[0] ?? "Usuário"}!
-        </h2>
-        <p>{format(new Date(), "EEEE, d 'de' MMMM", { locale: ptBR })}</p>
-        {/* BUSCA */}
-        <Busca />
+      <div className="relative w-full md:before:absolute md:before:inset-0 md:before:bg-[url('/background.webp')] md:before:bg-cover md:before:bg-center md:before:grayscale md:before:-z-10">
+        <div className="px-5 py-5 md:py-12 md:flex w-full max-w-7xl mx-auto gap-8">
+          <div className="w-full md:w-2/5">
+            <h2 className="text-xl font-bold">
+              Olá, {session?.user?.name?.split(" ")[0] ?? "Usuário"}!
+            </h2>
+            <p>{format(new Date(), "EEEE, d 'de' MMMM", { locale: ptBR })}</p>
+            {/* BUSCA */}
+            <Busca />
+          </div>
 
+          <div className="hidden md:flex md:flex-col md:w-3/5">
+            {/* RECOMENDADOS (DB) */}
+            <h2 className="text-xs font-bold mt-6 text-gray-400 uppercase">
+              Recomendados
+            </h2>
+            <div className="flex gap-4 mt-3 overflow-auto [&::-webkit-scrollbar]:hidden">
+              {recommendedBarbershops.map((barbershop) => {
+                return (
+                  <BarberShopItem key={barbershop.id} barbershop={barbershop} />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="p-5">
         {/* BUSCA RÁPIDA */}
         <BuscaRapida />
 

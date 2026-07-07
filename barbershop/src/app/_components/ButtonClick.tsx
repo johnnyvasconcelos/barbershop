@@ -1,11 +1,13 @@
 "use client";
 import { Button } from "./ui/button";
 import { Copy } from "lucide-react";
+import { toast } from "sonner";
 
 const ButtonClick = ({ phone }: { phone: string | number }) => {
   const handleCopy = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(String(phone));
+      toast.success("Número copiado com sucesso!");
     }
   };
 
