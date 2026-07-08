@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import CardDetails from "./CardDetails";
+import { createStripeCheckout } from "../_actions/create-stripe-checkout";
 import { Calendar } from "./ui/calendar";
 import { ptBR } from "date-fns/locale";
 import { useEffect, useState } from "react";
@@ -109,23 +110,34 @@ const serviceItem = ({ service, barbershop }: ServiceItemProps) => {
       return;
     }
 
-    const hour = Number(selectedTime.split(":")[0]);
-    const minute = Number(selectedTime.split(":")[1]);
+    try {
+      const hour = Number(selectedTime.split(":")[0]);
+      const minute = Number(selectedTime.split(":")[1]);
 
-    const newDate = set(selectedDay, {
-      hours: hour,
-      minutes: minute,
-    });
+      const newDate = set(selectedDay, {
+        hours: hour,
+        minutes: minute,
+      });
 
-    await createBooking({
-      serviceId: service.id ?? "",
-      userId: (data?.user as any).id,
-      date: newDate,
-    });
+      await createBooking({
+        serviceId: service.id ?? "",
+        userId: (data?.user as any).id,
+        date: newDate,
+      });
 
-    toast.success("Agendado realizado com sucesso!", {
-      description: "Agendamento realizado com sucesso.",
-    });
+      const checkout = await createStripeCheckout(
+        service.name,
+        Number(service.price),
+      );
+
+      if (checkout.url) {
+        window.location.href = checkout.url;
+      } else {
+        toast.error("Não foi possível gerar o link de pagamento.");
+      }
+    } catch (error) {
+      toast.error("Ocorreu um erro ao processar o agendamento.");
+    }
   };
   return (
     <Card>

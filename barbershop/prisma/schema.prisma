@@ -86,3 +86,10 @@ model Booking {
   service   BarbershopService @relation(fields: [serviceId], references: [id])
   user      User              @relation(fields: [userId], references: [id])
 }
+
+enum OrderStatus {
+  PENDING
+  PAYMENT_CONFIRMED
+  PAYMENT_FAILED
+  FINISHED
+}
