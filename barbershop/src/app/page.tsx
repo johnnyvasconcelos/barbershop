@@ -82,7 +82,7 @@ const page = async () => {
             </h2>
 
             <div className="overflow-auto mt-3 [&::-webkit-scrollbar]:hidden">
-              <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 flex flex-col">
+              <div className="md:grid md:grid-cols-3 lg:grid-cols-4 gap-4 flex flex-col">
                 {bookings?.map((booking) => (
                   <Agendamentos key={booking.id} booking={booking} />
                 ))}
