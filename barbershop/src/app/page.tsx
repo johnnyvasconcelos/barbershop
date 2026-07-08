@@ -81,15 +81,17 @@ const page = async () => {
               Agendamentos
             </h2>
 
-            <div className="flex overflow-auto gap-4 mt-3 [&::-webkit-scrollbar]:hidden">
-              {bookings?.map((booking) => (
-                <Agendamentos key={booking.id} booking={booking} />
-              ))}
-              {bookings?.length === 0 && (
-                <p className="text-gray-400 text-sm mt-4">
-                  Nenhum agendamento encontrado.
-                </p>
-              )}
+            <div className="overflow-auto mt-3 [&::-webkit-scrollbar]:hidden">
+              <div className="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 flex flex-col">
+                {bookings?.map((booking) => (
+                  <Agendamentos key={booking.id} booking={booking} />
+                ))}
+                {bookings?.length === 0 && (
+                  <p className="text-gray-400 text-sm mt-4">
+                    Nenhum agendamento encontrado.
+                  </p>
+                )}
+              </div>
             </div>
           </>
         )}
