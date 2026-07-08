@@ -13,8 +13,8 @@ export const createStripeCheckout = async (
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/bookings`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}`,
+    success_url: "https://barbershop-tau-two.vercel.app/bookings",
+    cancel_url: "https://barbershop-tau-two.vercel.app",
     line_items: [
       {
         price_data: {
